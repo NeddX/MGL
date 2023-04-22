@@ -164,7 +164,7 @@ int main(int argc, char* argv[])
 	// Make sure to pass in the type of your array as the template argument, in our case its a float.
 	auto vbo = std::unique_ptr<mgl::VertexBuffer>(new mgl::VertexBuffer());
 	vbo->Bind();
-	vbo->SetBuffer<float>(vertex_buffer_data, sizeof(vertex_buffer_data));
+	vbo->SetBuffer<float>(vertex_buffer_data, sizeof(vertex_buffer_data), BufferUsage::DYNAMIC_DRAW);
 
 	// Array consisting of positions of the cubes.
 	glm::vec3 cube_locs[] = 
@@ -263,7 +263,8 @@ int main(int argc, char* argv[])
 			//     0, 1, 2,
 			// 	   2, 3, 1
 			// };
-			// auto ibo = std::unique_ptr<mgl::IndexBuffer>(new mgl::IndexBuffer(index_array_data, 6));
+			// auto ibo = std::unique_ptr<mgl::IndexBuffer>(new mgl::IndexBuffer());
+			// ibo->SetBuffer(index_array_data, 6);
 			// renderer->Render(vao.get(), ibo.get(), shader.get());
 			renderer->Render(vao.get(), shader.get(), sizeof(vertex_buffer_data) / (sizeof(float) * 9));
 			angle = (angle < 360.0f) ? ++angle : 0.0f;

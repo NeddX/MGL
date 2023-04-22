@@ -7,7 +7,6 @@
 #include <array>
 
 #include "Constants.h"
-#include "Assert.h"
 #include "VertexArray.h"
 #include "IndexBuffer.h"
 #include "Shader.h"

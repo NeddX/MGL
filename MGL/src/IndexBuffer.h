@@ -3,6 +3,8 @@
 
 #include <cstdint>
 
+#include "Constants.h"
+
 namespace mgl
 {
 	// Forward declerations
@@ -14,18 +16,20 @@ namespace mgl
 
 	private:
 		uint32_t m_RendererID;
-		uint32_t m_Indicies;
+		size_t m_Indicies;
 
 	public:
-		IndexBuffer(const uint32_t* data, const uint32_t indexCount);
+		IndexBuffer();
 		~IndexBuffer();
 
 	public:
-		inline uint32_t GetIndexCount() const { return m_Indicies; }
+		inline size_t GetIndexCount() const { return m_Indicies; }
 
 	public:
 		void Bind() const;
 		void Unbind() const;
+		void SetBuffer(const uint32_t* data, size_t indexCount, BufferUsage usage = BufferUsage::STATIC_DRAW);
+		void SetBufferSubData(const uint32_t* data, size_t indexCount);
 	};
 }
 

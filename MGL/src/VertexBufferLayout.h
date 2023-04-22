@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <glad/glad.h>
 
-#include "Assert.h"
+#include "Constants.h"
 
 namespace mgl
 {

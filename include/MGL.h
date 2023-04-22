@@ -1,6 +1,7 @@
 #ifndef MGL_H
 #define MGL_H
 
+#include "../MGL/src/Constants.h"
 #include "../MGL/src/Renderer.h"
 #include "../MGL/src/VertexBuffer.h"
 #include "../MGL/src/IndexBuffer.h"

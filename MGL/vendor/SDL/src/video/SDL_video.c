@@ -1804,10 +1804,10 @@ SDL_CreateWindow(const char *title, int x, int y, int w, int h, Uint32 flags)
 }
 
 SDL_Window *
-SDL_CreateWindowFrom(const void *data)
+SDL_CreateWindowFrom(const void *data, Uint32 flags)
 {
     SDL_Window *window;
-    Uint32 flags = SDL_WINDOW_FOREIGN;
+    flags |= SDL_WINDOW_FOREIGN;
 
     if (!_this) {
         SDL_UninitializedVideo();
@@ -1818,7 +1818,7 @@ SDL_CreateWindowFrom(const void *data)
         return NULL;
     }
 
-    if (SDL_GetHintBoolean(SDL_HINT_VIDEO_FOREIGN_WINDOW_OPENGL, SDL_FALSE)) {
+    if (flags & SDL_WINDOW_OPENGL) {
         if (!_this->GL_CreateContext) {
             SDL_ContextNotSupported("OpenGL");
             return NULL;
@@ -1826,10 +1826,9 @@ SDL_CreateWindowFrom(const void *data)
         if (SDL_GL_LoadLibrary(NULL) < 0) {
             return NULL;
         }
-        flags |= SDL_WINDOW_OPENGL;
     }
 
-    if (SDL_GetHintBoolean(SDL_HINT_VIDEO_FOREIGN_WINDOW_VULKAN, SDL_FALSE)) {
+    if (flags & SDL_WINDOW_VULKAN) {
         if (!_this->Vulkan_CreateSurface) {
             SDL_ContextNotSupported("Vulkan");
             return NULL;
@@ -1841,7 +1840,6 @@ SDL_CreateWindowFrom(const void *data)
         if (SDL_Vulkan_LoadLibrary(NULL) < 0) {
             return NULL;
         }
-        flags |= SDL_WINDOW_VULKAN;
     }
 
     window = (SDL_Window *)SDL_calloc(1, sizeof(*window));

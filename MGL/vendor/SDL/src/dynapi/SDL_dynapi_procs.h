@@ -543,7 +543,7 @@ SDL_DYNAPI_PROC(int,SDL_SetWindowDisplayMode,(SDL_Window *a, const SDL_DisplayMo
 SDL_DYNAPI_PROC(int,SDL_GetWindowDisplayMode,(SDL_Window *a, SDL_DisplayMode *b),(a,b),return)
 SDL_DYNAPI_PROC(Uint32,SDL_GetWindowPixelFormat,(SDL_Window *a),(a),return)
 SDL_DYNAPI_PROC(SDL_Window*,SDL_CreateWindow,(const char *a, int b, int c, int d, int e, Uint32 f),(a,b,c,d,e,f),return)
-SDL_DYNAPI_PROC(SDL_Window*,SDL_CreateWindowFrom,(const void *a),(a),return)
+SDL_DYNAPI_PROC(SDL_Window*,SDL_CreateWindowFrom,(const void *a, Uint32 b),(a, b),return)
 SDL_DYNAPI_PROC(Uint32,SDL_GetWindowID,(SDL_Window *a),(a),return)
 SDL_DYNAPI_PROC(SDL_Window*,SDL_GetWindowFromID,(Uint32 a),(a),return)
 SDL_DYNAPI_PROC(Uint32,SDL_GetWindowFlags,(SDL_Window *a),(a),return)
