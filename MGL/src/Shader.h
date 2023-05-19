@@ -14,8 +14,8 @@ namespace mgl
 	private:
 		uint32_t m_RendererID;
 		const char* m_FilePath;
-		const char* m_VertexSource;
-		const char* m_FragmentSource;
+		char* m_VertexSource;
+		char* m_FragmentSource;
 		uint32_t m_VertexShaderID;
 		uint32_t m_FragmentShaderID;
 		std::unordered_map<std::string, int32_t> m_UniformLocations;

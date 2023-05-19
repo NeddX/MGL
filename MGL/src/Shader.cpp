@@ -18,8 +18,8 @@ namespace mgl
 
 	Shader::~Shader()
 	{
-		delete m_VertexSource;
-		delete m_FragmentSource;
+		delete[] m_VertexSource;
+		delete[] m_FragmentSource;
 		GL_Call(glUseProgram(0));
 		GL_Call(glDeleteProgram(m_RendererID));
 		GL_Call(glDeleteShader(m_VertexShaderID));
@@ -82,13 +82,13 @@ namespace mgl
 
 		if (!fs.is_open())
 		{
+			std::cerr << "[OpenGL]::[ERROR] >> Failed to open file '" << m_FilePath << "'!" << std::endl;
 			throw std::runtime_error("[OpenGL]::[ERROR] >> Failed to open file shader file!");
-			//std::cout << "[OpenGL]::[ERROR] >> Failed to open file '" << m_FilePath << "'!" << std::endl;
 		}
 
 		std::string line;
-		std::string* vertex_code = new std::string();
-		std::string* fragment_code = new std::string();
+		std::string vertex_code;
+		std::string fragment_code;
 		bool vertex = false, fragment = false;
 		while (std::getline(fs, line))
 		{
@@ -103,14 +103,18 @@ namespace mgl
 				vertex = false;
 			}
 			else if (vertex)
-				vertex_code->append(line + '\n');
+				vertex_code.append(line + '\n');
 			else if (fragment)
-				fragment_code->append(line + '\n');
+				fragment_code.append(line + '\n');
 		}
 		fs.close();
 
-		m_VertexSource = vertex_code->c_str();
-		m_FragmentSource = fragment_code->c_str();
+		m_VertexSource = new char[vertex_code.size() + 1];
+		m_FragmentSource = new char[fragment_code.size() + 1];
+		std::memset(m_VertexSource, 0, vertex_code.size() + 1);
+		std::memset(m_FragmentSource, 0, fragment_code.size() + 1);
+		std::memcpy(m_VertexSource, vertex_code.c_str(), vertex_code.size());
+		std::memcpy(m_FragmentSource, fragment_code.c_str(), fragment_code.size());
 	}
 
 	bool Shader::CompileShader()
