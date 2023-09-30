@@ -7,19 +7,19 @@ namespace mgl
 {
 	VertexArray::VertexArray()
 	{
-		GL_Call(glGenVertexArrays(1, &m_RendererID));
-		GL_Call(glBindVertexArray(m_RendererID));
+		GL_Call(glGenVertexArrays(1, &m_RendererId));
+		GL_Call(glBindVertexArray(m_RendererId));
 	}
 
 	VertexArray::~VertexArray()
 	{
 		GL_Call(glBindVertexArray(0));
-		GL_Call(glDeleteVertexArrays(1, &m_RendererID));
+		GL_Call(glDeleteVertexArrays(1, &m_RendererId));
 	}
 
 	void VertexArray::Bind() const
 	{
-		GL_Call(glBindVertexArray(m_RendererID));
+		GL_Call(glBindVertexArray(m_RendererId));
 	}
 
 	void VertexArray::Unbind() const
@@ -42,7 +42,7 @@ namespace mgl
 				elements[i].type, 
 				elements[i].normalized,
 				stride,
-				(const void*) offset));
+				(const void*)offset));
 			GL_Call(glEnableVertexAttribArray(i)); // I KEEP FUCKING FORGETING THIS HOLY SHIT
 			offset += VertexBufferElement::GetSizeOfType(elements[i].type) * elements[i].count;
 		}
