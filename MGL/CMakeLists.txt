@@ -3,7 +3,7 @@ file(GLOB_RECURSE CORE_SOURCES "src/*.cpp")
 file(GLOB_RECURSE CORE_HEADERS "src/*.h")
 
 # Add the executable
-add_library(MGL ${CORE_HEADERS} ${CORE_SOURCES})
+add_library(MGL STATIC ${CORE_HEADERS} ${CORE_SOURCES})
 
 # Set the C++ Standard to 17 for this target
 set_property(TARGET MGL PROPERTY CXX_STANDARD 17)

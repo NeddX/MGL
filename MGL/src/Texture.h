@@ -22,7 +22,7 @@ namespace mgl
 		Depth32FStencil8				= GL_DEPTH32F_STENCIL8,
 		RedInt32						= GL_R32I,
 		RedUInt32						= GL_R32UI,
-		RedFloat32						= GL_R32F,
+		RedFloat32						= GL_R32F
 	};
 
 	enum class TextureFormatType
