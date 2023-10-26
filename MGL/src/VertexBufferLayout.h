@@ -62,42 +62,26 @@ namespace mgl
 		}
 
 	public:
-	/*
 		template<typename T>
 		void Push(const uint32_t count)
 		{
-			static_assert(false, "T must inherit from following types:\n\tfloat\n\tint\n\tuint\n\tint8\n\tuint8");
-		}
-		template<>
-		void Push<float>(const uint32_t count)
-		{
-			m_Elements.emplace_back(GL_FLOAT, count, GL_FALSE);
-			m_Stride += sizeof(GLfloat) * count;
-		}
-		template<>
-		void Push<uint32_t>(const uint32_t count)
-		{
-			m_Elements.emplace_back(GL_UNSIGNED_INT, count, GL_FALSE);
-			m_Stride += sizeof(GLuint) * count;
-		}
-		template<>
-		void Push<uint8_t>(const uint32_t count)
-		{
-			m_Elements.emplace_back(GL_UNSIGNED_BYTE, count, GL_TRUE);
-			m_Stride += sizeof(GLubyte) * count;
-		}
-		template<typename T>
-		void Push(const uint32_t count)
-		{
-			m_Elements.emplace_back(GL_FLOAT, count, GL_FALSE);
-			m_Stride += sizeof(T) * count;
-		}
-		*/
-		template<typename T>
-		void Push(int count)
-		{
+			char msg[256];
+			std::sprintf(msg, "Couldn't push! T type: %s\n", typeid(T).name());
+			MGL_ASSERT(false, msg);
+			//static_assert(false, "T must be one of the following types:\n\tfloat\n\tint\n\tuint\n\tint8\n\tuint8");
 		}
 	};
+
+	template <>
+	void VertexBufferLayout::Push<float>(const uint32_t count);
+	template <>
+	void VertexBufferLayout::Push<uint8_t>(const uint32_t count);
+	template <>
+	void VertexBufferLayout::Push<int8_t>(const uint32_t count);
+	template <>
+	void VertexBufferLayout::Push<uint32_t>(const uint32_t count);
+	template <>
+	void VertexBufferLayout::Push<int32_t>(const uint32_t count);
 }
 
 #endif // MGL_VERTEX_BUFFER_LAYOUT_H
