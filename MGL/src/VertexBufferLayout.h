@@ -62,7 +62,7 @@ namespace mgl
 		}
 
 	public:
-#ifndef __GNUC__
+	/*
 		template<typename T>
 		void Push(const uint32_t count)
 		{
@@ -86,14 +86,17 @@ namespace mgl
 			m_Elements.emplace_back(GL_UNSIGNED_BYTE, count, GL_TRUE);
 			m_Stride += sizeof(GLubyte) * count;
 		}
-#else
 		template<typename T>
 		void Push(const uint32_t count)
 		{
 			m_Elements.emplace_back(GL_FLOAT, count, GL_FALSE);
 			m_Stride += sizeof(T) * count;
 		}
-#endif
+		*/
+		template<typename T>
+		void Push(int count)
+		{
+		}
 	};
 }
 
