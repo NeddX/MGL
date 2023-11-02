@@ -73,23 +73,23 @@ namespace mgl {
     class Texture
     {
     private:
-        uint32_t    m_RendererId;
-        const char* m_FilePath;
-        uint8_t*    m_Buffer;
-        int         m_Width;
-        int         m_Height;
-        int         m_GPP;
-        uint32_t    m_Slot;
+        uint32_t          m_RendererId;
+        const std::string m_FilePath;
+        uint8_t*          m_Buffer;
+        int               m_Width;
+        int               m_Height;
+        int               m_GPP;
+        uint32_t          m_Slot;
 
     public:
-        inline uint32_t    GetGlId() const { return m_RendererId; }
-        inline int         GetWidth() const { return m_Width; }
-        inline int         GetHeight() const { return m_Height; }
-        inline uint32_t    GetSlot() const { return m_Slot; }
-        inline const char* GetFilePath() const { return m_FilePath; }
+        inline uint32_t         GetGlId() const { return m_RendererId; }
+        inline int              GetWidth() const { return m_Width; }
+        inline int              GetHeight() const { return m_Height; }
+        inline uint32_t         GetSlot() const { return m_Slot; }
+        inline std::string_view GetFilePath() const { return m_FilePath; }
 
     public:
-        Texture(const char* filePath, TextureProperties properties = {});
+        Texture(const std::string_view filePath, TextureProperties properties = {});
         ~Texture();
 
     public:
