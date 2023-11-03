@@ -4,7 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <glad/glad.h>
+#include <glad.h>
 #include <glm/gtc/type_ptr.hpp>
 
 namespace mgl

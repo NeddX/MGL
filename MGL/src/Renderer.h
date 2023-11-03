@@ -1,7 +1,7 @@
 #ifndef MGL_RENDERER_H
 #define MGL_RENDERER_H
 
-#include <glad/glad.h>
+#include <glad.h>
 #include <cstdio>
 #include <cstdint>
 #include <array>

@@ -32,8 +32,8 @@ endif()
 
 # glad
 if (NOT GLAD_SOURCE_FILE)
-	target_include_directories(MGL PUBLIC vendor/glad/include)
-	target_sources(MGL PRIVATE vendor/glad/src/glad.cpp)
+	target_include_directories(MGL PUBLIC vendor/glad)
+	target_sources(MGL PRIVATE vendor/glad/glad.cpp)
 else()
 	target_include_directories(MGL PRIVATE ${GLAD_INCLUDE_DIRS})
 	target_sources(MGL PRIVATE ${GLAD_SOURCE_FILE})

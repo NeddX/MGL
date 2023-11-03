@@ -1,7 +1,7 @@
 #include <cstdlib>
 #include <cstdint>
 #include <SDL.h>
-#include <glad/glad.h>
+#include <glad.h>
 #include <SDL_opengl.h>
 #include <memory>
 #include <MGL.h>

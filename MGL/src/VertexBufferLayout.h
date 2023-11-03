@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <cstdint>
-#include <glad/glad.h>
+#include <glad.h>
 
 #include "Constants.h"
 

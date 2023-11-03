@@ -9,7 +9,7 @@
 #include <iostream>
 #include <string>
 #include <stdio.h>
-#include <glad/glad.h>
+#include <glad.h>
 
 #ifdef __GNUC__
 #define MGL_DEBUG_TRAP() __builtin_trap()
