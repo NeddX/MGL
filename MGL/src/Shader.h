@@ -2,45 +2,46 @@
 #define MGL_SHADER_H
 
 #include <cstdint>
-#include <string>
-#include <unordered_map>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <string>
+#include <unordered_map>
 
-namespace mgl
-{
-	class Shader
-	{
-	private:
-		uint32_t m_RendererId;
-		const char* m_FilePath;
-		char* m_VertexSource;
-		char* m_FragmentSource;
-		uint32_t m_VertexShaderId;
-		uint32_t m_FragmentShaderId;
-		std::unordered_map<std::string, int32_t> m_UniformLocations;
+namespace mgl {
+    class Shader
+    {
+    private:
+        uint32_t                                 m_RendererId;
+        std::string                              m_FilePath;
+        std::string                              m_VertexSource;
+        std::string                              m_FragmentSource;
+        uint32_t                                 m_VertexShaderId;
+        uint32_t                                 m_FragmentShaderId;
+        std::unordered_map<std::string, int32_t> m_UniformLocations;
+        std::string                              m_Version;
 
-	public:
-		Shader(const char* filePath);
-		~Shader();
+    public:
+        Shader(const std::string_view filePath, const std::string_view version = "450 core");
+        ~Shader();
 
-	public:
-		void Bind() const;
-		void Unbind() const;
-		void SetUniform1i(const char* name, const int32_t value);
-		void SetUniform1iArr(const char* name, const uint32_t count, const int32_t* value);
-		void SetUniform1f(const char* name, const float value);
-		void SetUniform2f(const char* name, const float a0, const float a1);
-		void SetUniform4f(const char* name, const float a0, const float a1, const float a2, const float a3);
-		void SetUniform3f(const char* name, const float a0, const float a1, const float a2);
-		void SetUniformMat4f(const char* name, const glm::mat4& matrix);
-		void SetUniformMat4f(const char* name, const float* matrix);
+    public:
+        void Bind() const;
+        void Unbind() const;
+        void SetUniform1i(const char* name, const int32_t value);
+        void SetUniform1iArr(const char* name, const uint32_t count, const int32_t* value);
+        void SetUniform1f(const char* name, const float value);
+        void SetUniform2f(const char* name, const float a0, const float a1);
+        void SetUniform4f(const char* name, const float a0, const float a1, const float a2, const float a3);
+        void SetUniform3f(const char* name, const float a0, const float a1, const float a2);
+        void SetUniformMat4f(const char* name, const glm::mat4& matrix);
+        void SetUniformMat4f(const char* name, const float* matrix);
+        bool CompileShader(
+            const std::initializer_list<std::pair<std::string_view, std::string_view>> compileDefinitions = {});
 
-	private:
-		void ParseShaderFile();
-		bool CompileShader();
-		int32_t GetUniformLocation(const char* name);
-	};
-}
+    private:
+        void    ParseShaderFile();
+        int32_t GetUniformLocation(const char* name);
+    };
+} // namespace mgl
 
 #endif // MGL_SHADER_H

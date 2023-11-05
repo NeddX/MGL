@@ -5,7 +5,8 @@
 #include <stdexcept>
 
 namespace mgl {
-    Texture::Texture(const std::string_view filePath, TextureProperties properties) : m_FilePath(filePath)
+    Texture::Texture(const std::string_view filePath, TextureProperties properties)
+        : m_FilePath(filePath), m_Props(properties)
     {
         m_RendererId = 0;
         m_Buffer     = nullptr;
