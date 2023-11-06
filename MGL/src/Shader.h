@@ -21,7 +21,7 @@ namespace mgl {
         std::string                              m_Version;
 
     public:
-        Shader(const std::string_view filePath, const std::string_view version = "450 core");
+        Shader(const std::string_view filePath, const std::string_view version = "330 core");
         ~Shader();
 
     public:

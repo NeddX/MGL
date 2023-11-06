@@ -221,13 +221,6 @@ namespace mgl {
         return pixel_data;
     }
 
-    void FrameBuffer::SetAttachment(const uint32_t index, const int value)
-    {
-        MGL_ASSERT(index < m_ColourAttachmentIds.size(), "Index outside bounds of attachments.");
-        auto& props = m_ColourAttachments[index];
-        glClearTexImage(m_ColourAttachmentIds[index], 0, (GLint)props.format, GL_INT, &value);
-    }
-
     void FrameBuffer::SetCurrentlyBoundTextureProperties(const TextureWrapMode   wrapMode,
                                                          const TextureFilterMode filterMode)
     {

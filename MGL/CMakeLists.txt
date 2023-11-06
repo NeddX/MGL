@@ -31,7 +31,7 @@ else()
 endif()
 
 # glad
-if (NOT GLAD_SOURCE_FILE)
+if (NOT GLAD_SOURCE_FILES)
 	target_include_directories(MGL PUBLIC vendor/glad)
 	target_sources(MGL PRIVATE vendor/glad/glad.cpp)
 else()

@@ -52,7 +52,6 @@ namespace mgl {
                                  pixel_data.data()));
             return pixel_data;
         }
-        void SetAttachment(const uint32_t index, const int value);
 
     private:
         void   Resize(const uint32_t width, const uint32_t height);
