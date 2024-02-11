@@ -15,48 +15,45 @@ set_property(TARGET MGL PROPERTY CXX_STANDARD 17)
 # SDL
 if (ANDROID)
 	find_package(SDL2 REQUIRED)
-	target_include_directories(MGL PRIVATE ${SDL2_INCLUDE_DIRS})
-	target_link_libraries(MGL ${SDL2_LIBRARIES})
 else()
-	if (NOT SDL2_LIBRARIES)
+	if(NOT TARGET SDL2)
 		add_subdirectory(vendor/SDL ${PROJECT_BINARY_DIR}/SDL)
 		set(SDL2_INCLUDE_DIRS vendor/SDL/include)
 		set(SDL2_LIBRARIES SDL2-static SDL2main)
-		target_include_directories(MGL PRIVATE ${SDL2_INCLUDE_DIRS})
-		target_link_libraries(MGL ${SDL2_LIBRARIES})
-	else()
-		target_include_directories(MGL PRIVATE ${SDL2_INCLUDE_DIRS})
-		target_link_libraries(MGL ${SDL2_LIBRARIES})
 	endif()
 endif()
+target_include_directories(MGL PUBLIC ${SDL2_INCLUDE_DIRS})
+target_link_libraries(MGL ${SDL2_LIBRARIES})
 
 # glad
-if (NOT GLAD_SOURCE_FILES)
-	target_include_directories(MGL PUBLIC vendor/glad)
-	target_sources(MGL PRIVATE vendor/glad/glad.cpp)
-else()
-	target_include_directories(MGL PRIVATE ${GLAD_INCLUDE_DIRS})
-	target_sources(MGL PRIVATE ${GLAD_SOURCE_FILE})
+if (NOT TARGET glad)
+	add_subdirectory(vendor/glad ${PROJECT_BINARY_DIR}/glad)
+	set(GLAD_INCLUDE_DIRS vendor/glad)
+	set(GLAD_LIBRARIES glad)
 endif()
+target_include_directories(MGL PUBLIC ${GLAD_INCLUDE_DIRS})
+target_link_libraries(MGL ${GLAD_LIBRARIES})
 
 # stb
 if (NOT STB_INCLUDE_DIRS)
-	target_include_directories(MGL PRIVATE vendor/stb)
+	target_include_directories(MGL PUBLIC vendor/stb)
 else()
-	target_include_directories(MGL PRIVATE ${STB_INCLUDE_DIRS})
+	target_include_directories(MGL PUBLIC ${STB_INCLUDE_DIRS})
 endif()
 
 # glm
-if (NOT GLM_LIBRARIES)
+if(NOT TARGET glm)
 	add_subdirectory(vendor/glm ${PROJECT_BINARY_DIR}/glm)
 	set(GLM_INCLUDE_DIRS vendor/glm/glm)
 	set(GLM_LIBRARIES glm)
-	target_include_directories(MGL PRIVATE ${GLM_INCLUDE_DIRS})
-	target_link_libraries(MGL ${GLM_LIBRARIES})
-else()
-	target_include_directories(MGL PRIVATE ${GLM_INCLUDE_DIRS})
-	target_link_libraries(MGL ${GLM_LIBRARIES})
 endif()
+target_include_directories(MGL PUBLIC ${GLM_INCLUDE_DIRS})
+target_link_libraries(MGL ${GLM_LIBRARIES})
+
+# ============= #
+#    INSTALL  	#
+# ============= #
+install(TARGETS glm SDL2 SDL2main glad DESTINATION bin)
 
 # ============= #
 #     MISC  	#
