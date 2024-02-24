@@ -8,8 +8,8 @@
 #include <string>
 
 namespace mgl {
-    Shader::Shader(const std::string_view filePath, const std::string_view version)
-        : m_FilePath(filePath), m_Version(version)
+    Shader::Shader(std::filesystem::path filePath, const std::string_view version)
+        : m_FilePath(std::move(filePath)), m_Version(version)
     {
         GL_Call(m_RendererId = glCreateProgram());
     }

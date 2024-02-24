@@ -5,19 +5,22 @@
 #include <stdexcept>
 
 namespace mgl {
-    Texture::Texture(const std::string_view filePath, TextureProperties properties)
-        : m_FilePath(filePath), m_Props(properties)
+    Texture::Texture(std::filesystem::path filePath, TextureProperties properties)
+        : m_FilePath(std::move(filePath)), m_Props(properties)
     {
+        const auto str_path = m_FilePath.string();
+
         m_RendererId = 0;
         m_Buffer     = nullptr;
         m_Width      = 0;
         m_Height     = 0;
         m_GPP        = 0;
+
         GL_Call(glGenTextures(1, &m_RendererId));
         GL_Call(glBindTexture(GL_TEXTURE_2D, m_RendererId));
 
         stbi_set_flip_vertically_on_load(1);
-        m_Buffer = stbi_load(m_FilePath.c_str(), &m_Width, &m_Height, &m_GPP, 4);
+        m_Buffer = stbi_load(str_path.c_str(), &m_Width, &m_Height, &m_GPP, 4);
         if (!m_Buffer)
         {
             throw std::runtime_error("[OpenGL]::[ERROR] >> Could not open texture file for reading!");
