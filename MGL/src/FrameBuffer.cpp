@@ -134,14 +134,13 @@ namespace mgl {
             GL_Call(glDeleteTextures(m_ColourAttachmentIds.size(), m_ColourAttachmentIds.data()));
             GL_Call(glDeleteTextures(1, &m_DepthAttachmentId));
 
-            m_ColourAttachments.clear();
             m_ColourAttachmentIds.clear();
             m_DepthAttachment   = TextureProperties{};
             m_DepthAttachmentId = 0;
         }
 
-        glGenFramebuffers(1, &m_RendererId);
-        glBindFramebuffer(GL_FRAMEBUFFER, m_RendererId);
+        GL_Call(glGenFramebuffers(1, &m_RendererId));
+        GL_Call(glBindFramebuffer(GL_FRAMEBUFFER, m_RendererId));
 
         if (!m_ColourAttachments.empty())
         {
@@ -173,7 +172,7 @@ namespace mgl {
 
         if (!m_ColourAttachments.empty())
         {
-            glBindFramebuffer(GL_FRAMEBUFFER, m_RendererId);
+            GL_Call(glBindFramebuffer(GL_FRAMEBUFFER, m_RendererId));
             MGL_ASSERT(m_ColourAttachments.size() < MAX_COLOUR_ATTACHMENT_COUNT,
                        "Cannot have more than " + std::to_string(MAX_COLOUR_ATTACHMENT_COUNT) + " colour attachments.");
             MGL_ASSERT(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE,
@@ -193,8 +192,8 @@ namespace mgl {
 
     void FrameBuffer::Bind()
     {
-        glBindFramebuffer(GL_FRAMEBUFFER, m_RendererId);
-        glViewport(0, 0, m_Properties.width, m_Properties.height);
+        GL_Call(glBindFramebuffer(GL_FRAMEBUFFER, m_RendererId));
+        GL_Call(glViewport(0, 0, m_Properties.width, m_Properties.height));
     }
 
     void FrameBuffer::Unbind()

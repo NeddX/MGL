@@ -6,7 +6,8 @@
 
 namespace mgl {
     Texture::Texture(std::filesystem::path filePath, TextureProperties properties)
-        : m_FilePath(std::move(filePath)), m_Props(properties)
+        : m_FilePath(std::move(filePath))
+        , m_Props(properties)
     {
         const auto str_path = m_FilePath.string();
 
@@ -34,16 +35,22 @@ namespace mgl {
         GL_Call(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, (GLint)properties.wrapMode));
 
         // Set the filter mode
-        GL_Call(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, (GLint)properties.filterMode));
         GL_Call(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, (GLint)properties.filterMode));
 
-        /* No mipmaps for now.
-        if (properties.mipmapMode != TextureMimapMode::None)
+        // Use mipmap filtering for minification and generate the actual mipmap.
+        if (properties.mipmapMode != TextureMipmapMode::None)
+        {
             GL_Call(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, (GLint)properties.mipmapMode));
-        */
-
-        GL_Call(glTexImage2D(GL_TEXTURE_2D, 0, (GLint)properties.format, m_Width, m_Height, 0, GL_RGBA,
-                             GL_UNSIGNED_BYTE, m_Buffer));
+            GL_Call(glTexImage2D(GL_TEXTURE_2D, 0, (GLint)properties.format, m_Width, m_Height, 0, GL_RGBA,
+                                 GL_UNSIGNED_BYTE, m_Buffer));
+            GL_Call(glGenerateMipmap(GL_TEXTURE_2D));
+        }
+        else
+        {
+            GL_Call(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, (GLint)properties.filterMode));
+            GL_Call(glTexImage2D(GL_TEXTURE_2D, 0, (GLint)properties.format, m_Width, m_Height, 0, GL_RGBA,
+                                 GL_UNSIGNED_BYTE, m_Buffer));
+        }
         Bind();
     }
 

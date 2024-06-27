@@ -76,7 +76,7 @@ namespace mgl {
     {
         std::ifstream fs(m_FilePath);
 
-        if (!fs.is_open())
+        if (!fs.is_open() || !fs.good())
         {
             std::cerr << "[OpenGL]::[ERROR] >> Failed to open file '" << m_FilePath << "'!" << std::endl;
             throw std::runtime_error("[OpenGL]::[ERROR] >> Failed to open file shader file!");

@@ -46,29 +46,21 @@ namespace mgl {
         Nearest = GL_NEAREST
     };
 
-    /* No mipmaps for now.
-    enum class TextureMimapMode
+    enum class TextureMipmapMode
     {
-        None							= -1,
-        LinearLinear					= GL_LINEAR_MIPMAP_LINEAR,
-        LinearNearest					= GL_LINEAR_MIPMAP_NEAREST,
-        NearestNearest					= GL_NEAREST_MIPMAP_NEAREST,
-        NearestLinear					= GL_NEAREST_MIPMAP_LINEAR
+        None           = -1,
+        LinearLinear   = GL_LINEAR_MIPMAP_LINEAR,
+        LinearNearest  = GL_LINEAR_MIPMAP_NEAREST,
+        NearestNearest = GL_NEAREST_MIPMAP_NEAREST,
+        NearestLinear  = GL_NEAREST_MIPMAP_LINEAR
     };
-    */
 
     struct TextureProperties
     {
-        TextureFormat     format     = TextureFormat::RGBA8;
+        TextureFormat     format     = TextureFormat::None;
         TextureWrapMode   wrapMode   = TextureWrapMode::Mirror;
         TextureFilterMode filterMode = TextureFilterMode::Linear;
-
-        TextureProperties(const TextureFormat     format     = TextureFormat::None,
-                          const TextureWrapMode   wrapMode   = TextureWrapMode::Mirror,
-                          const TextureFilterMode filterMode = TextureFilterMode::Linear)
-            : format(format), wrapMode(wrapMode), filterMode(filterMode)
-        {
-        }
+        TextureMipmapMode mipmapMode = TextureMipmapMode::None;
     };
 
     class Texture

@@ -20,7 +20,9 @@ namespace mgl {
         FrameBufferProperties() = default;
         FrameBufferProperties(const uint32_t width, const uint32_t height,
                               const std::initializer_list<TextureProperties> attachments)
-            : width(width), height(height), attachments(attachments)
+            : width(width)
+            , height(height)
+            , attachments(attachments)
         {
         }
     };
@@ -52,9 +54,9 @@ namespace mgl {
                                  pixel_data.data()));
             return pixel_data;
         }
+        void Resize(const uint32_t width, const uint32_t height);
 
     private:
-        void   Resize(const uint32_t width, const uint32_t height);
         void   SetCurrentlyBoundTextureProperties(const TextureWrapMode wrapMode, const TextureFilterMode filterMode);
         GLenum DetermineFormatType(const TextureFormat format);
 
