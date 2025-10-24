@@ -27,12 +27,13 @@ target_link_libraries(MGL ${SDL2_LIBRARIES})
 
 # glad
 if (NOT TARGET glad)
-	add_subdirectory(vendor/glad ${PROJECT_BINARY_DIR}/glad)
+	#add_subdirectory(vendor/glad ${PROJECT_BINARY_DIR}/glad)
 	set(GLAD_INCLUDE_DIRS vendor/glad)
 	set(GLAD_LIBRARIES glad)
 endif()
 target_include_directories(MGL PUBLIC ${GLAD_INCLUDE_DIRS})
-target_link_libraries(MGL ${GLAD_LIBRARIES})
+#target_link_libraries(MGL ${GLAD_LIBRARIES})
+target_sources(MGL PUBLIC ${GLAD_INCLUDE_DIRS}/glad.cpp)
 
 # stb
 if (NOT STB_INCLUDE_DIRS)
@@ -53,7 +54,7 @@ target_link_libraries(MGL ${GLM_LIBRARIES})
 # ============= #
 #    INSTALL  	#
 # ============= #
-install(TARGETS glm SDL2 SDL2main glad DESTINATION bin)
+install(TARGETS glm SDL2 SDL2main DESTINATION bin)
 
 # ============= #
 #     MISC  	#
